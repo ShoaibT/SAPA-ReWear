@@ -45,34 +45,31 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : null;
   </section>
 <?php endif; ?>
 
-<!-- Search Bar -->
-<div class="search-container">
-  <form action="#" method="GET">
-    <input type="text" name="search" placeholder="Search for clothes..." <?= $isLoggedIn ? '' : 'disabled' ?>>
-    <button <?= $isLoggedIn ? '' : 'disabled' ?>>🔍</button>
-  </form>
-</div>
-<!-- Banner -->
-<section class="banner">
-  <img src="assets/images/sample_banner.jpg" alt="Banner">
-</section>
 
 <!-- Categories -->
 <section class="categories">
   <h2>Categories</h2>
   <div class="category-grid">
-    <div class="category-card">Tops</div>
-    <div class="category-card">Bottoms</div>
-    <div class="category-card">Footwear</div>
-    <div class="category-card">Accessories</div>
-    <div class="category-card">Outerwear</div>
-  </div>
+  <a class="category-card" href="browse_items.php?cat=Tops">Tops</a>
+  <a class="category-card" href="browse_items.php?cat=Bottoms">Bottoms</a>
+  
+  <a class="category-card" href="browse_items.php?cat=Outerwear">Outerwear</a>
+</div>
+
 </section>
 
 <!-- Listings -->
 <section class="listings">
   <h2>Featured Products</h2>
+    <!-- Search Bar -->
+<div class="search-container">
+  <form action="#" method="GET">
+    <input type="text" name="search" placeholder="Search for clothes..." <?= $isLoggedIn ? '' : 'disabled' ?>>
+    <button <?= $isLoggedIn ? '' : '' ?>>🔍</button>
+  </form>
+</div>
   <div class="product-grid">
+  
     <?php if (!$isLoggedIn): ?>
       <div class="product-card">Login to view items</div>
       <div class="product-card">Login to view items</div>
@@ -91,10 +88,44 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : null;
           <p><?= htmlspecialchars($row['category']) ?> - <?= htmlspecialchars($row['size']) ?></p>
           <a href="item_details.php?id=<?= $row['id'] ?>">View</a>
         </div>
+        
       <?php endwhile; ?>
     <?php endif; ?>
   </div>
 </section>
+<script>
+const searchBox = document.querySelector('.search-container input');
+const cards = document.querySelectorAll('.product-grid .product-card');
+
+if (searchBox) {
+  searchBox.addEventListener('keyup', () => {
+  const q = searchBox.value.trim().toLowerCase();
+  cards.forEach(card => {
+    const title = card.querySelector('h3').innerText.toLowerCase();
+    const match = title.includes(q);
+    card.style.display = match ? '' : 'none';
+  });
+});
+
+}
+
+const noResults = document.getElementById('no-results');
+
+searchBox.addEventListener('keyup', () => {
+  const q = searchBox.value.trim().toLowerCase();
+  let anyVisible = false;
+
+  cards.forEach(card => {
+    const title = card.querySelector('h3').innerText.toLowerCase();
+    const match = title.includes(q);
+    card.style.display = match ? '' : 'none';
+    if (match) anyVisible = true;
+  });
+
+  noResults.style.display = anyVisible ? 'none' : 'block';
+});
+
+</script>
 
 </body>
 </html>

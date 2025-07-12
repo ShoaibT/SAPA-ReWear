@@ -7,7 +7,7 @@ $defaultForm = isset($_GET['action']) && $_GET['action'] === 'signup' ? 'signup'
 <head>
   <meta charset="UTF-8">
   <title>Login / Signup - ReWear</title>
-  <link rel="stylesheet" href="assets/css/auth.css">
+  <link rel="stylesheet" href="css/auth.css">
   <script>
   window.addEventListener("DOMContentLoaded", () => {
     const defaultForm = "<?php echo $defaultForm; ?>";
@@ -42,21 +42,37 @@ $defaultForm = isset($_GET['action']) && $_GET['action'] === 'signup' ? 'signup'
   <form id="login-form" action="process_auth.php" method="POST" style="display: block;">
     <h2>Login</h2>
     <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <input type="submit" name="login" value="Login">
+    <br>
+    <input type="password" name="password" placeholder="Password" required><br>
+        <input type="submit" name="login" value="Login">
   </form>
 
   <!-- Signup Form -->
   <form id="signup-form" action="process_auth.php" method="POST" style="display: none;">
     <h2>Signup</h2>
     <input type="text" name="name" placeholder="Full Name" required>
+    <br>  
     <input type="email" name="email" placeholder="Email" required>
+    <br>
     <input type="password" name="password" placeholder="Password" required>
+    <br>
     <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+    <br>
     <input type="text" name="phone" placeholder="Phone (Optional)">
+    <br>
     <input type="submit" name="signup" value="Signup">
   </form>
 </div>
+
+ <!-- Theme toggle switch -->
+ <div class="theme-toggle">
+    <label class="switch">
+      <input type="checkbox" id="theme-checkbox" onchange="toggleTheme()" />
+      <span class="slider round"></span>
+    </label>
+  </div>
+
+<script src="auth.js"></script>
 
 </body>
 </html>

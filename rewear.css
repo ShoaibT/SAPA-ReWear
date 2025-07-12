@@ -35,8 +35,7 @@ body {
   /* Search section */
   .search-container {
     padding: 1rem 2rem;
-    background: white;
-    display: flex;
+    text-align: center;
     justify-content: center;
     gap: 0.5rem;
   }

@@ -17,7 +17,7 @@ if (isset($_POST['signup'])) {
     $hashed = password_hash($password, PASSWORD_DEFAULT);
 
     $stmt = $conn->prepare(
-        "INSERT INTO users (name, email, password, phone) VALUES (?, ?, ?, ?)"
+        "INSERT INTO users (name, email, password, phone, points) VALUES (?, ?, ?, ?, 10)"
     );
     $stmt->bind_param("ssss", $name, $email, $hashed, $phone);
 

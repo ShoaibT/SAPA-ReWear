@@ -9,7 +9,7 @@ require 'db_connect.php';
 $user_id = $_SESSION['user_id'];
 
 // Fetch user info
-$stmt = $conn->prepare("SELECT name, email, phone, created_at FROM users WHERE id = ?");
+$stmt = $conn->prepare("SELECT name, email, phone, created_at,points FROM users WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $user_result = $stmt->get_result();
@@ -40,6 +40,18 @@ $purchases = $stmtPurchases->get_result();
   <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
 <body>
+<?php if (isset($_SESSION['message'])): ?>
+  <p style="background:#d4edda;color:#155724;padding:10px;text-align:center;">
+    <?= $_SESSION['message']; unset($_SESSION['message']); ?>
+  </p>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+  <p style="background:#f8d7da;color:#721c24;padding:10px;text-align:center;">
+    <?= $_SESSION['error']; unset($_SESSION['error']); ?>
+  </p>
+<?php endif; ?>
+
 <style>/* General Layout */
 body {
   font-family: 'Segoe UI', sans-serif;
@@ -169,14 +181,14 @@ section h2 {
   }
 }
 </style>
+
 <header class="top-bar">
-  <h1>ReWear</h1>
+  <h1><a href="rewear.php" class="logo-link">ReWear</a></h1>
   <div class="user-info">
-    Hello, <?php echo htmlspecialchars($user['name']); ?> |
-    <a href="logout.php">Logout</a>
+    <a href="user_dashboard.php"><?= htmlspecialchars($_SESSION['user_name']) ?></a> |
+    <a href="logout.php" class="logout">Logout</a>
   </div>
 </header>
-
 <!-- Profile Summary -->
 <section class="profile-summary">
   <div class="profile-pic"></div>
@@ -185,6 +197,11 @@ section h2 {
     <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
     <p><strong>Phone:</strong> <?= htmlspecialchars($user['phone'] ?? 'N/A') ?></p>
     <p><strong>Joined:</strong> <?= date('M d, Y', strtotime($user['created_at'])) ?></p>
+    <p><strong>Points:</strong> <?= htmlspecialchars($user['points'] ?? 0) ?></p>
+    
+<button onclick="openEditModal()" style="margin-top:10px; padding:6px 12px; background:#1e8e3e; color:white; border:none; border-radius:4px;">Edit Profile</button>
+
+
   </div>
 </section>
 
@@ -195,9 +212,14 @@ section h2 {
     <?php if ($listings->num_rows > 0): ?>
       <?php while ($item = $listings->fetch_assoc()): ?>
         <div class="product-card">
-          <img src="uploads/<?= htmlspecialchars($item['image_path']) ?>" alt="<?= htmlspecialchars($item['title']) ?>">
+          <img src="<?= htmlspecialchars($item['image_path']) ?>" alt="<?= htmlspecialchars($item['title']) ?>">
           <h3><?= htmlspecialchars($item['title']) ?></h3>
           <p><?= htmlspecialchars($item['category']) ?> - <?= htmlspecialchars($item['size']) ?></p>
+          <form method="POST" class="delete-form">
+  <input type="hidden" name="item_id" value="<?= $item['id'] ?>">
+  <button type="button" class="delete-btn">Delete</button>
+</form>
+
         </div>
       <?php endwhile; ?>
     <?php else: ?>
@@ -213,16 +235,78 @@ section h2 {
     <?php if ($purchases->num_rows > 0): ?>
       <?php while ($item = $purchases->fetch_assoc()): ?>
         <div class="product-card">
-          <img src="uploads/<?= htmlspecialchars($item['image_path']) ?>" alt="<?= htmlspecialchars($item['title']) ?>">
+          <img src="<?= htmlspecialchars($item['image_path']) ?>" alt="<?= htmlspecialchars($item['title']) ?>">
           <h3><?= htmlspecialchars($item['title']) ?></h3>
           <p><?= htmlspecialchars($item['category']) ?> - <?= htmlspecialchars($item['size']) ?></p>
+          
         </div>
+        
       <?php endwhile; ?>
     <?php else: ?>
       <p>No completed purchases/swaps found.</p>
     <?php endif; ?>
   </div>
 </section>
+<!-- Custom Confirmation Modal -->
+<div id="confirm-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+  <div style="background:white; padding:20px; border-radius:8px; text-align:center;">
+    <p>Are you sure you want to delete this item?</p>
+    <button id="confirm-yes" style="background:#e74c3c; color:white; border:none; padding:8px 15px; margin:5px; border-radius:4px;">Yes, Delete</button>
+    <button id="confirm-no" style="background:#ccc; border:none; padding:8px 15px; margin:5px; border-radius:4px;">Cancel</button>
+  </div>
+</div>
+
+
+<!-- Edit Profile Modal -->
+<div id="editModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); justify-content:center; align-items:center;">
+  <form action="update_profile.php" method="POST" enctype="multipart/form-data" style="background:white; padding:20px; border-radius:10px; width:300px;">
+    <h3>Edit Profile</h3>
+    <label>Phone:</label><br>
+    <input type="tel" name="phone"
+       value="<?= htmlspecialchars($user['phone'] ?? '') ?>"
+       maxlength="10"
+       required
+       oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,10);"
+       style="width:100%; margin-bottom:10px;"><br>
+
+    <label>Upload Profile Image:</label><br>
+    <input type="file" name="profile_image" accept="image/*" style="margin-bottom:15px;"><br>
+    
+    <div style="text-align:right;">
+      <button type="submit" style="background:#1e8e3e; color:white; padding:6px 10px; border:none; border-radius:4px;">Save</button>
+      <button type="button" onclick="closeEditModal()" style="margin-left:8px; background:#aaa; color:white; padding:6px 10px; border:none; border-radius:4px;">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<script>
+let formToSubmit = null;
+
+document.querySelectorAll('.delete-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    formToSubmit = btn.closest('form');
+    document.getElementById('confirm-modal').style.display = 'flex';
+  });
+});
+
+document.getElementById('confirm-yes').onclick = () => {
+  if (formToSubmit) formToSubmit.submit();
+};
+
+document.getElementById('confirm-no').onclick = () => {
+  document.getElementById('confirm-modal').style.display = 'none';
+  formToSubmit = null;
+};
+
+function openEditModal() {
+  document.getElementById('editModal').style.display = 'flex';
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').style.display = 'none';
+}
+
+</script>
 
 </body>
 </html>

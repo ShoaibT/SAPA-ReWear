@@ -1,0 +1,130 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  .top-bar {
+    background-color: #24292e;
+    color: white;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .top-bar a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+  }
+  .logo-link {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .page-container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  }
+  
+  h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #1e1e1e;
+  }
+  
+  .gallery-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .gallery-main img {
+    width: 100%;
+    max-width: 500px;
+    max-height: 400px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+  }
+  
+  .gallery-thumbs {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .gallery-thumbs img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    transition: 0.3s;
+  }
+  .gallery-thumbs img:hover {
+    border-color: #007BFF;
+  }
+  
+  .info {
+    margin-top: 25px;
+    font-size: 16px;
+  }
+  .info h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  .info p {
+    margin: 8px 0;
+  }
+  
+  .availability {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #008000;
+  }
+  
+  .actions {
+    margin-top: 30px;
+  }
+  .actions button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+  }
+  .actions button:hover {
+    background-color: #218838;
+  }
+  
+  .actions button:nth-child(2) {
+    background-color: #007BFF;
+  }
+  .actions button:nth-child(2):hover {
+    background-color: #0069d9;
+  }
+  
+  @media (max-width: 768px) {
+    .gallery-main img {
+      max-width: 100%;
+      max-height: 300px;
+    }
+    .page-container {
+      padding: 15px;
+    }
+  }
+  
