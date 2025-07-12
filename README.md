@@ -11,3 +11,21 @@ Email : akshaysolan804@gmil.com
 
 Team member 4 : Akash Zambare
 Email : akashzambare01@gmail.com
+
+####username, password, email
+username - Shoaib
+email - pranav@mail.com
+password - p123
+
+username - Pranav More
+email - shoaib@mail.com
+password - s123
+
+username - Akash Zambare
+email - akash@mail.com
+password - a123
+
+
+###for Admin
+email - shoaib@admin.com
+password - shaoib@admin
