@@ -9,11 +9,14 @@ require 'db_connect.php';
 $user_id = $_SESSION['user_id'];
 
 // Fetch user info
-$stmt = $conn->prepare("SELECT name, email, phone, created_at,points FROM users WHERE id = ?");
+$stmt = $conn->prepare("SELECT name, email, phone, created_at,points, profile_image FROM users WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $user_result = $stmt->get_result();
 $user = $user_result->fetch_assoc();
+$profilePic = !empty($user['profile_image']) && file_exists($user['profile_image']) 
+    ? htmlspecialchars($user['profile_image']) 
+    : 'assets/images/default_avatar.png';
 
 // Fetch My Listings
 $stmtListings = $conn->prepare("SELECT * FROM items WHERE user_id = ? ORDER BY created_at DESC");
@@ -37,7 +40,7 @@ $purchases = $stmtPurchases->get_result();
 <head>
   <meta charset="UTF-8">
   <title>Dashboard – ReWear</title>
-  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link rel="stylesheet" href="css/user_dashboard.css">
 </head>
 <body>
 <?php if (isset($_SESSION['message'])): ?>
@@ -96,14 +99,14 @@ body {
   border-radius: 12px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
-
 .profile-pic {
   width: 100px;
   height: 100px;
+  object-fit: cover;
   border-radius: 50%;
-  background: url('../../assets/images/default_avatar.png') center/cover no-repeat;
   border: 2px solid #1e8e3e;
 }
+
 
 .profile-details p {
   margin: 0.4rem 0;
@@ -191,7 +194,10 @@ section h2 {
 </header>
 <!-- Profile Summary -->
 <section class="profile-summary">
-  <div class="profile-pic"></div>
+<img class="profile-pic" src="<?= $profilePic ?>" alt="Profile Picture">
+
+
+
   <div class="profile-details">
     <p><strong>Name:</strong> <?= htmlspecialchars($user['name']) ?></p>
     <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
@@ -215,7 +221,7 @@ section h2 {
           <img src="<?= htmlspecialchars($item['image_path']) ?>" alt="<?= htmlspecialchars($item['title']) ?>">
           <h3><?= htmlspecialchars($item['title']) ?></h3>
           <p><?= htmlspecialchars($item['category']) ?> - <?= htmlspecialchars($item['size']) ?></p>
-          <form method="POST" class="delete-form">
+          <form method="POST" action="delete_item.php" class="delete-form">
   <input type="hidden" name="item_id" value="<?= $item['id'] ?>">
   <button type="button" class="delete-btn">Delete</button>
 </form>
@@ -230,7 +236,7 @@ section h2 {
 
 <!-- My Purchases -->
 <section class="my-purchases">
-  <h2>My Purchases</h2>
+  <h2>My Swap</h2>
   <div class="product-grid">
     <?php if ($purchases->num_rows > 0): ?>
       <?php while ($item = $purchases->fetch_assoc()): ?>
