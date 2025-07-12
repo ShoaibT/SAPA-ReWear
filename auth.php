@@ -1,3 +1,7 @@
+<?php
+$defaultForm = isset($_GET['action']) && $_GET['action'] === 'signup' ? 'signup' : 'login';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +9,26 @@
   <title>Login / Signup - ReWear</title>
   <link rel="stylesheet" href="assets/css/auth.css">
   <script>
-    function toggleForm(formType) {
-      document.getElementById('login-form').style.display = (formType === 'login') ? 'block' : 'none';
-      document.getElementById('signup-form').style.display = (formType === 'signup') ? 'block' : 'none';
+  window.addEventListener("DOMContentLoaded", () => {
+    const defaultForm = "<?php echo $defaultForm; ?>";
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+
+    if (defaultForm === "signup") {
+      signupForm.style.display = "block";
+      loginForm.style.display = "none";
+    } else {
+      signupForm.style.display = "none";
+      loginForm.style.display = "block";
     }
-  </script>
+  });
+
+  function toggleForm(formType) {
+    document.getElementById('login-form').style.display = (formType === 'login') ? 'block' : 'none';
+    document.getElementById('signup-form').style.display = (formType === 'signup') ? 'block' : 'none';
+  }
+</script>
+
 </head>
 <body>
 

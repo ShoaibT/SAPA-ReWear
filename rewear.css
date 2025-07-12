@@ -1,0 +1,144 @@
+/* General layout */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f7f7f7;
+    color: #333;
+  }
+  
+  /* Top bar with login/signup */
+  .top-bar {
+    background-color: #1e8e3e;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .top-bar h1 {
+    margin: 0;
+  }
+  
+  .user-info a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+    font-weight: 500;
+  }
+  
+  .user-info a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Search section */
+  .search-container {
+    padding: 1rem 2rem;
+    background: white;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .search-container input {
+    width: 50%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-container button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #1e8e3e;
+    color: white;
+    border-radius: 4px;
+    cursor: not-allowed;
+  }
+  
+  /* Banner image */
+  .banner img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    display: block;
+  }
+  
+  /* Categories section */
+  .categories {
+    padding: 2rem;
+    background: #fff;
+  }
+  
+  .categories h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #1e8e3e;
+  }
+  
+  .category-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .category-card {
+    background: #ffffff;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    color: #1e8e3e;
+    border: 2px solid #1e8e3e;
+    font-weight: 500;
+    transition: 0.3s ease;
+    cursor: default;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Product listings */
+  .listings {
+    padding: 2rem;
+    background: #f0f0f0;
+  }
+  
+  .listings h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .product-card {
+    background: white;
+    width: 200px;
+    height: 280px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    font-weight: 500;
+    color: #777;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .search-container input {
+      width: 80%;
+    }
+  
+    .category-card, .product-card {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+  
