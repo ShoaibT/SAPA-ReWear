@@ -13,8 +13,10 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : null;
 <body>
 
 <!-- Top Nav -->
+<!-- Top Nav -->
 <header class="top-bar">
-  <h1>ReWear</h1>
+  <!-- wrap the logo in a link that always reloads rewear.php -->
+  <h1><a href="rewear.php" class="logo-link">ReWear</a></h1>
   <div class="user-info">
     <?php if ($isLoggedIn): ?>
       <a href="user_dashboard.php"><?= htmlspecialchars($userName) ?></a> |
@@ -27,6 +29,7 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : null;
 </header>
 
 
+
 <!-- Hero Section (only after login) -->
 <?php if ($isLoggedIn): ?>
   <section class="hero-section">
@@ -35,8 +38,8 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : null;
       <p>Join our sustainable fashion movement by reusing instead of buying new.</p>
       <div class="cta-buttons">
         <a href="add_item.php" class="cta">List New Product</a>
-        <a href="browse_items.php" class="cta">Start Swapping</a>
-        <a href="dashboard.php" class="cta">Browse Items</a>
+        <a href="" class="cta">Start Swapping</a>
+        <a href="browse_items.php" class="cta">Browse Items</a>
       </div>
     </div>
   </section>
@@ -83,7 +86,7 @@ $userName = $isLoggedIn ? $_SESSION['user_name'] : null;
       while ($row = $result->fetch_assoc()):
       ?>
         <div class="product-card">
-          <img src="uploads/<?= htmlspecialchars($row['image_path']) ?>" alt="<?= htmlspecialchars($row['title']) ?>">
+          <img src="<?= htmlspecialchars($row['image_path']) ?>" alt="<?= htmlspecialchars($row['title']) ?>">
           <h3><?= htmlspecialchars($row['title']) ?></h3>
           <p><?= htmlspecialchars($row['category']) ?> - <?= htmlspecialchars($row['size']) ?></p>
           <a href="item_details.php?id=<?= $row['id'] ?>">View</a>

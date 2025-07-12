@@ -118,16 +118,46 @@ body {
   .product-card {
     background: white;
     width: 200px;
-    height: 280px;
+    height: auto;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-align: center;
     padding: 1rem;
     font-weight: 500;
-    color: #777;
+    color: #333;
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-card h3 {
+    font-size: 16px;
+    margin: 0.5rem 0 0.2rem;
+    color: #1e8e3e;
+  }
+  
+  .product-card p {
+    font-size: 14px;
+    color: #666;
+    margin: 0.2rem 0;
+  }
+  
+  .product-card a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: #1e8e3e;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .product-card a:hover {
+    text-decoration: underline;
   }
   
   /* Responsive */
@@ -140,5 +170,63 @@ body {
       width: 100%;
       max-width: 300px;
     }
+  }
+  
+  .logo-link { color:#fff; text-decoration:none; }
+
+
+  .product-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(to right, #e8f5e9, #c8e6c9);
+    padding: 1rem 1rem;
+    text-align: center;
+    border-bottom: 0.5px solid #d0e0d0;
+  }
+  
+  .hero-text {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .hero-text h2 {
+    font-size: 2rem;
+    color: #1e8e3e;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  
+  .hero-text p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 2rem;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .cta-buttons .cta {
+    background-color: #1e8e3e;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+  }
+  
+  .cta-buttons .cta:hover {
+    background-color: #166b2d;
   }
   

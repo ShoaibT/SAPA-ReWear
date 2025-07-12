@@ -1,0 +1,97 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .top-bar {
+    background-color: #1e8e3e;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .top-bar .logo-link {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .logout {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+  }
+  
+  .page-container {
+    padding: 2rem;
+  }
+  
+  .page-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #1e8e3e;
+  }
+  
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  
+  .product-card {
+    background: white;
+    width: 220px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .product-card h3 {
+    margin: 0.5rem 0 0.2rem;
+    color: #333;
+  }
+  
+  .product-card p {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .product-card a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.4rem 1rem;
+    background: #1e8e3e;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+  
+  .availability-tag {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 12px;
+    background-color: #e0f7ec;
+    color: #1e8e3e;
+    font-weight: bold;
+  }
+  .uploader {
+    font-size: 13px;
+    color: #444;
+    margin: 4px 0;
+  }
+    
