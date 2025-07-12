@@ -12,6 +12,8 @@ Email : akshaysolan804@gmil.com
 Team member 4 : Akash Zambare
 Email : akashzambare01@gmail.com
 
+
+For User Login (auth.php)
 #### username, password, email
 username - Shoaib
 email - pranav@mail.com
@@ -26,6 +28,6 @@ email - akash@mail.com
 password - a123
 
 
-### for Admin
+### for Admin Login (admin_login.php)
 email - shoaib@admin.com
-password - shaoib@admin
+password - shoaib@admin
